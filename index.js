@@ -1,10 +1,8 @@
 const express = require("express"); //import express
 
 const app = express();
+const productRoutes = require("./src/routes/products");
 
-app.use(() => {
-  console.log("hello celpel");
-  console.log("halo lagi");
-});
+app.use("/v1/customer", productRoutes);
 
 app.listen(4000);
