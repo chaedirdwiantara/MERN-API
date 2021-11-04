@@ -32,7 +32,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://chaedir:I.L.U.All8@cluster0.vslcx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    "mongodb+srv://chaedir:I.L.U.All8@cluster0.vslcx.mongodb.net/blog?retryWrites=true&w=majority"
   )
   .then(() => {
     app.listen(4000, () => console.log("Connection Success"));
