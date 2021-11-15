@@ -21,5 +21,17 @@ router.post(
 
 router.get("/posts", blogController.getAllBlogPost);
 router.get("/post/:postId", blogController.getBlogPostById);
+router.put(
+  "/post/:postId",
+  [
+    body("title")
+      .isLength({ min: 5 })
+      .withMessage("input title minimum 5 karakter"),
+    body("body")
+      .isLength({ min: 5 })
+      .withMessage("input body minimum 5 karakter"),
+  ],
+  blogController.updateBlogPost
+);
 
 module.exports = router;
