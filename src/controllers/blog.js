@@ -43,11 +43,26 @@ exports.createBlogPost = (req, res, next) => {
 };
 
 exports.getAllBlogPost = (req, res, next) => {
+  const currentPage = req.query.page || 1;
+  const perPage = req.query.perPage || 5;
+  let totalItems;
+
   BlogPost.find()
+    .countDocuments() //to count total documents in database
+    .then((count) => {
+      totalItems = count;
+      return BlogPost.find()
+        .skip((parseInt(currentPage) - 1) * parseInt(perPage)) //show start data from what number of data, like start from 0, 6, 11, etc
+        .limit(parseInt(perPage)); //show limit shown data
+    })
     .then((result) => {
       res.status(200).json({
         message: "Data Blog Post Berhasil dipanggil",
         data: result,
+        total_data: totalItems,
+        per_page: parseInt(perPage),
+        current_page: parseInt(currentPage),
+        //for data result, we always used undercross '_' to defined 2 words
       });
     })
     .catch((err) => {
